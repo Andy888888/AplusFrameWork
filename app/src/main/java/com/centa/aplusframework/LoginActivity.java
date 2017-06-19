@@ -3,21 +3,18 @@ package com.centa.aplusframework;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -29,13 +26,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.centa.centacore.base.AbsActivity;
+import com.centa.centacore.utils.WLog;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
-
-import com.centa.centacore.base.AbsActivity;
-import com.centa.centacore.utils.WLog;
 
 /**
  * A login screen that offers login via email/password.
@@ -98,7 +95,7 @@ public class LoginActivity extends AbsActivity implements LoaderCallbacks<Cursor
             @Override
             public void onClick(View view) {
 
-                loadingDialog("数据已提交，请耐心等待...");
+                loadingDialog("我的数据已提交，请耐心等待...");
 
                 WLog.setDebug(true);
                 WLog.p("tt");
@@ -157,7 +154,7 @@ public class LoginActivity extends AbsActivity implements LoaderCallbacks<Cursor
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
+                                           @NonNull int[] grantResults) {
         if (requestCode == REQUEST_READ_CONTACTS) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 populateAutoComplete();
