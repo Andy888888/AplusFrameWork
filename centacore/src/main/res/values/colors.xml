@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blackLight">#999999</color>
+    <color name="blackMedium">#666666</color>
+    <color name="blackDark">#333333</color>
+    <color name="blackDarkTrans">#e0333333</color>
+    <color name="appBackground">#F0F0F0</color>
+    <color name="colorPrimary">#F13E06</color>
+    <color name="colorPrimaryDark">#FAFAFA</color>
+    <color name="colorAccent">#F13E06</color>
+    <color name="blueLight">#5CB6D4</color>
+    <color name="bluePrimary">#4a90e2</color>
+    <color name="orangeLight">#F57851</color>
+    <color name="lightBlue">#7797b3</color>
+</resources>

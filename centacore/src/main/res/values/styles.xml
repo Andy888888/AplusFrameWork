@@ -1,0 +1,43 @@
+<resources>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppBarOverlayDark" parent="ThemeOverlay.AppCompat.Dark" />
+
+    <style name="PopupOverlayDark" parent="ThemeOverlay.AppCompat.Dark" />
+    
+    <style name="ToolbarBarTheme" parent="Base.Widget.AppCompat.Toolbar">
+        <item name="titleMargin">0dp</item>
+        <item name="contentInsetStart">0dp</item>
+        <item name="contentInsetStartWithNavigation">0dp</item>
+    </style>
+
+    <style name="MSV_EditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@android:color/white</item>
+    </style>
+
+    <style name="MSV_ImageButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+    </style>
+
+    <style name="CentaProgressDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+
+    <style name="progressDrawable">
+        <item name="android:indeterminateDrawable">@drawable/centa_progress</item>
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateDuration">2000</item>
+    </style>
+</resources>
