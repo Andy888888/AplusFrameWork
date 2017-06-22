@@ -168,11 +168,6 @@ public abstract class AbsActivity extends RxAppCompatActivity {
         }
 
         loadingDialog.setMessage(message);
-//        if (!TextUtils.isEmpty(message)) {
-//            loadingDialog.showMsgText().setMessage(message);
-//        } else {
-//            loadingDialog.hideMsgText();
-//        }
         loadingDialog.setCancelable(cancelable);
         if (!loadingDialog.isShowing()) {
             loadingDialog.show();
