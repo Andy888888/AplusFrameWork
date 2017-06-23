@@ -30,7 +30,7 @@ public class demoapplication extends Application {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(10000, TimeUnit.MILLISECONDS)
                 .readTimeout(10000, TimeUnit.MILLISECONDS)
-                .addInterceptor(new HeadersInterceptor())
+                .addInterceptor(new AplusHeadersInterceptor())
                 .addInterceptor(new LoggerInterceptor(LoggerInterceptor.Level.HEADERS))
                 .cache(new Cache(new File(getCacheDir(), "http"), 10 * 1024 * 1024))
                 .build();
