@@ -5,17 +5,19 @@ import android.util.Log;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.Printer;
 
+import static com.orhanobut.logger.Logger.t;
+
 /**
  * Created by yanwenqiang on 2017/6/18
  * description 打印工具
  */
 public class WLog {
 
-    private static final String DEBUG_TAG = "CentanetLog";
+    public static final String DEBUG_TAG = "CentaLog";
     private static boolean mDebug = false;
 
     static {
-        Logger.init(DEBUG_TAG).methodCount(1).hideThreadInfo();
+        Logger.init(DEBUG_TAG).methodCount(0).hideThreadInfo();
     }
 
     /**
@@ -100,8 +102,44 @@ public class WLog {
             setPrinter(tag, methodCount).json(json.toString());
     }
 
+
+    /**
+     * 错误日志
+     *
+     * @param obj 打印内容
+     */
+    public static void e(Object obj) {
+        if (checkLogAble() && obj != null)
+            Logger.e(obj.toString());
+    }
+
+    /**
+     * 错误日志
+     *
+     * @param tag 标记
+     * @param obj 打印内容
+     */
+    public static void e(String tag, Object obj) {
+        if (checkLogAble() && obj != null)
+            setPrinter(tag, -1).e(obj.toString());
+    }
+
+    /**
+     * 错误日志
+     *
+     * @param tag         标记
+     * @param obj         打印内容
+     * @param methodCount 堆栈方法数量
+     */
+    public static void e(String tag, Object obj, int methodCount) {
+        if (checkLogAble() && obj != null)
+            setPrinter(tag, methodCount).e(obj.toString());
+    }
+
+
     /**
      * 原生打印
+     *
      * @param obj
      */
     public static void nativeLog(Object obj) {
@@ -111,9 +149,10 @@ public class WLog {
 
     /**
      * 原生打印
+     *
      * @param obj
      */
-    public static void nativeLog(String tag,Object obj) {
+    public static void nativeLog(String tag, Object obj) {
         if (checkLogAble() && obj != null)
             Log.d(tag, obj.toString());
     }
@@ -121,9 +160,9 @@ public class WLog {
 
     protected static Printer setPrinter(String tag, int methodCount) {
         if (methodCount > 0)
-            return Logger.t(tag, methodCount);
+            return t(tag, methodCount);
         else
-            return Logger.t(tag);
+            return t(tag, 0);
     }
 
     protected static boolean checkLogAble() {

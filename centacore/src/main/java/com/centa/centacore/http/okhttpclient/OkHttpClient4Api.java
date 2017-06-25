@@ -5,7 +5,7 @@ import okhttp3.OkHttpClient;
 /**
  * Created by yanwenqiang on 17/6/19.
  * <p>
- * 描述:API使用的{@link OkHttpClient}实例
+ * 描述:API使用的{@link OkHttpClient}实例 单例
  */
 
 public final class OkHttpClient4Api {

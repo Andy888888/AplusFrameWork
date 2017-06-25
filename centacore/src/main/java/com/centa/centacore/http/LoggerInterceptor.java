@@ -1,6 +1,6 @@
 package com.centa.centacore.http;
 
-import com.orhanobut.logger.Logger;
+import com.centa.centacore.utils.WLog;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -23,12 +23,15 @@ import okio.BufferedSource;
 /**
  * Created by yanwenqiang on 17/6/19.
  * <p>
- * 描述:api请求log拦截器,使用{@link Logger}打印日志
+ * 描述:api请求log拦截器,使用{@link WLog}打印日志
  */
 @SuppressWarnings("unused")
 public class LoggerInterceptor implements Interceptor {
 
-    private static final String TAG = "OkHttp";//请求标签
+    private static final String REQUEST_TAG = "Request";//请求标签
+    private static final String RESPONSE_TAG = "Response";//响应标签
+
+
     private static final Charset UTF8 = Charset.forName("UTF-8");
     private final Level mLevel;
 
@@ -90,7 +93,7 @@ public class LoggerInterceptor implements Interceptor {
                     .append("\n");
         }
 
-        Logger.t(TAG).d(requestBuilder.toString());
+        WLog.p(REQUEST_TAG, requestBuilder.toString());
 
         StringBuilder responseBuilder = new StringBuilder();
         long startNs = System.nanoTime();
@@ -98,7 +101,7 @@ public class LoggerInterceptor implements Interceptor {
         try {
             response = chain.proceed(request);
         } catch (IOException e) {
-            Logger.t(TAG).e(e, "HTTP FAILED");
+            WLog.e(REQUEST_TAG, requestBuilder.toString());
             throw e;
         }
         long tookMs = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startNs);
@@ -127,7 +130,7 @@ public class LoggerInterceptor implements Interceptor {
 
         if (bodyEncoded(response.headers())) {
             responseBuilder.append("END HTTP (encoded body omitted)");
-            Logger.t(TAG).d(responseBuilder.toString());
+            WLog.p(RESPONSE_TAG, responseBuilder.toString());
         } else {
             BufferedSource source = responseBody.source();
             source.request(Long.MAX_VALUE); // Buffer the entire body.
@@ -142,7 +145,7 @@ public class LoggerInterceptor implements Interceptor {
                     responseBuilder.append(
                             "Couldn't decode the response body; charset is likely malformed.")
                             .append("END HTTP");
-                    Logger.t(TAG).d(responseBuilder.toString());
+                    WLog.p(RESPONSE_TAG, responseBuilder.toString());
                     return response;
                 }
             }
@@ -151,7 +154,7 @@ public class LoggerInterceptor implements Interceptor {
                 responseBuilder.append("END HTTP (binary ")
                         .append(buffer.size())
                         .append("-byte body omitted)");
-                Logger.t(TAG).d(responseBuilder.toString());
+                WLog.p(RESPONSE_TAG, responseBuilder.toString());
                 return response;
             }
 
@@ -159,10 +162,10 @@ public class LoggerInterceptor implements Interceptor {
                     .append(buffer.size())
                     .append("-byte body)");
 
-            Logger.t(TAG).d(responseBuilder.toString());
+            WLog.p(RESPONSE_TAG, responseBuilder.toString());
 
             if (contentLength != 0) {
-                Logger.t(TAG).json(buffer.clone().readString(charset));
+                WLog.json(RESPONSE_TAG, buffer.clone().readString(charset));
             }
         }
 

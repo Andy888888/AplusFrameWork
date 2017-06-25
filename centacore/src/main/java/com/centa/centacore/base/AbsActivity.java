@@ -16,8 +16,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.centa.centacore.R;
+import com.centa.centacore.utils.WLog;
 import com.centa.centacore.widgets.LoadingDialog;
-import com.orhanobut.logger.Logger;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 /**
@@ -188,7 +188,7 @@ public abstract class AbsActivity extends RxAppCompatActivity {
      * 网络不可用
      */
     protected void netWorkUnable(Throwable e) {
-        Logger.e(e, "netWorkUnable");
+        WLog.e(WLog.DEBUG_TAG, "netWorkUnable", 3);
         toast(R.string.network_unable);
     }
 
@@ -198,7 +198,7 @@ public abstract class AbsActivity extends RxAppCompatActivity {
     protected void snack(@StringRes int id) {
         View coordinatorLayout = findViewById(R.id.coordinatorLayout);
         if (coordinatorLayout == null) {
-            Logger.e("cannot find coordinatorLayout");
+            WLog.e(WLog.DEBUG_TAG, "cannot find coordinatorLayout", 3);
         } else {
             Snackbar.make(coordinatorLayout, id, Snackbar.LENGTH_SHORT).show();
         }
@@ -212,7 +212,7 @@ public abstract class AbsActivity extends RxAppCompatActivity {
     protected void snack(CharSequence text) {
         View coordinatorLayout = findViewById(R.id.coordinatorLayout);
         if (coordinatorLayout == null) {
-            Logger.e("cannot find coordinatorLayout");
+            WLog.e(WLog.DEBUG_TAG, "cannot find coordinatorLayout", 3);
         } else {
             Snackbar.make(coordinatorLayout, text, Snackbar.LENGTH_SHORT).show();
         }

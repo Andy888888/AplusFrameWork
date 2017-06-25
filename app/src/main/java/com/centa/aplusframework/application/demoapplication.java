@@ -2,8 +2,10 @@ package com.centa.aplusframework.application;
 
 import android.app.Application;
 
+import com.centa.aplusframework.api.APlusHeadersInterceptor;
 import com.centa.centacore.http.LoggerInterceptor;
 import com.centa.centacore.http.okhttpclient.OkHttpClient4Api;
+import com.centa.centacore.utils.WLog;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -20,6 +22,7 @@ public class demoapplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        WLog.setDebug(true);
         initRetrofit();
     }
 
@@ -30,8 +33,9 @@ public class demoapplication extends Application {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(10000, TimeUnit.MILLISECONDS)
                 .readTimeout(10000, TimeUnit.MILLISECONDS)
-                .addInterceptor(new AplusHeadersInterceptor())
-                .addInterceptor(new LoggerInterceptor(LoggerInterceptor.Level.HEADERS))
+                .addInterceptor(new APlusHeadersInterceptor())
+//                .addInterceptor(new FakeInterceptor())
+                .addInterceptor(new LoggerInterceptor(LoggerInterceptor.Level.BASIC))
                 .cache(new Cache(new File(getCacheDir(), "http"), 10 * 1024 * 1024))
                 .build();
         OkHttpClient4Api.initClient(okHttpClient);
