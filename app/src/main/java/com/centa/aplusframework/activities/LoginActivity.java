@@ -26,7 +26,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.centa.aplusframework.BB;
 import com.centa.aplusframework.R;
 import com.centa.aplusframework.api.ApiCreator;
 import com.centa.aplusframework.model.respdo.APlusRespDo;
@@ -41,6 +40,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -77,6 +78,10 @@ public class LoginActivity extends AbsActivity implements LoaderCallbacks<Cursor
     private Button mEmailSignInButton;
 
 
+    @BindView(R.id.button_test)
+    Button mTestButton;
+
+
     @Override
     protected int layoutResId() {
         return R.layout.activity_login;
@@ -84,6 +89,7 @@ public class LoginActivity extends AbsActivity implements LoaderCallbacks<Cursor
 
     @Override
     protected void findViews() {
+        ButterKnife.bind(this);
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
         mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
@@ -126,6 +132,13 @@ public class LoginActivity extends AbsActivity implements LoaderCallbacks<Cursor
                         cancelLoadingDialog();
                     }
                 }, 2000);
+            }
+        });
+
+        mTestButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toast("你好！");
             }
         });
     }

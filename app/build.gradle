@@ -36,4 +36,7 @@ dependencies {
     compile project(path: ':centacore')
     // 运行时权限管理
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.3@aar'
+    // 黄油刀
+    compile 'com.jakewharton:butterknife:8.6.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }
