@@ -27,7 +27,6 @@ public class APlusHeadersInterceptor implements Interceptor {
         // number:      时间戳
         // sign:        加密信息 = md5( key + company + unixTime + userNo)
 
-
         Date date = new Date();
         long unixTime = date.getTime() / 1000;
         String key = "CYDAP_com-group";
@@ -35,9 +34,6 @@ public class APlusHeadersInterceptor implements Interceptor {
         String staffNo = "Ceshigzywq";
         String osign = key + company + unixTime + staffNo;
         String sign = EncryptUtil.md5(osign);
-
-
-
 
         Request.Builder requestBuilder = chain.request().newBuilder();
         requestBuilder.addHeader("token", "")

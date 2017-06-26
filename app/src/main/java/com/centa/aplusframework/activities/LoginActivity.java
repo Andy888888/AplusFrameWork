@@ -28,9 +28,9 @@ import android.widget.TextView;
 
 import com.centa.aplusframework.R;
 import com.centa.aplusframework.api.ApiCreator;
+import com.centa.aplusframework.base.BaseActivity;
 import com.centa.aplusframework.model.respdo.APlusRespDo;
 import com.centa.aplusframework.model.respdo.PermUserInfoDo;
-import com.centa.centacore.base.AbsActivity;
 import com.centa.centacore.interfaces.ISingleRequest;
 import com.centa.centacore.utils.WLog;
 import com.trello.rxlifecycle.android.ActivityEvent;
@@ -52,7 +52,7 @@ import static android.os.Build.VERSION_CODES.M;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AbsActivity implements LoaderCallbacks<Cursor>, ISingleRequest {
+public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor>, ISingleRequest {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -71,13 +71,16 @@ public class LoginActivity extends AbsActivity implements LoaderCallbacks<Cursor
     private UserLoginTask mAuthTask = null;
 
     // UI references.
+    @BindView(R.id.email)
     private AutoCompleteTextView mEmailView;
+    @BindView(R.id.password)
     private EditText mPasswordView;
+    @BindView(R.id.login_progress)
     private View mProgressView;
+    @BindView(R.id.login_form)
     private View mLoginFormView;
+    @BindView(R.id.email_sign_in_button)
     private Button mEmailSignInButton;
-
-
     @BindView(R.id.button_test)
     Button mTestButton;
 
@@ -90,11 +93,6 @@ public class LoginActivity extends AbsActivity implements LoaderCallbacks<Cursor
     @Override
     protected void findViews() {
         ButterKnife.bind(this);
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-        mPasswordView = (EditText) findViewById(R.id.password);
-        mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
     }
 
     @Override
@@ -115,23 +113,7 @@ public class LoginActivity extends AbsActivity implements LoaderCallbacks<Cursor
             @Override
             public void onClick(View view) {
 
-                loadingDialog("我的数据已提交，请耐心等待...");
-
-                WLog.setDebug(true);
-                WLog.p("tt");
-                WLog.nativeLog("tt");
-                WLog.p("sss", "ggggg", 5);
-                WLog.p("还原");
-                attemptLogin();
-
-                request();
-
-                mEmailSignInButton.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        cancelLoadingDialog();
-                    }
-                }, 2000);
+                login_click();
             }
         });
 
@@ -141,6 +123,29 @@ public class LoginActivity extends AbsActivity implements LoaderCallbacks<Cursor
                 toast("你好！");
             }
         });
+    }
+
+    /**
+     * 登录点击事件
+     */
+    private void login_click() {
+        loadingDialog("我的数据已提交，请耐心等待...");
+
+        WLog.setDebug(true);
+        WLog.p("tt");
+        WLog.nativeLog("tt");
+        WLog.p("sss", "ggggg", 5);
+        WLog.p("还原");
+        attemptLogin();
+
+        request();
+
+        mEmailSignInButton.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                cancelLoadingDialog();
+            }
+        }, 2000);
     }
 
     @Override
@@ -245,12 +250,10 @@ public class LoginActivity extends AbsActivity implements LoaderCallbacks<Cursor
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -392,7 +395,6 @@ public class LoginActivity extends AbsActivity implements LoaderCallbacks<Cursor
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
 
             try {
                 // Simulate network access.
@@ -409,7 +411,6 @@ public class LoginActivity extends AbsActivity implements LoaderCallbacks<Cursor
                 }
             }
 
-            // TODO: register the new account here.
             return true;
         }
 

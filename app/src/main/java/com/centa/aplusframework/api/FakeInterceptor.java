@@ -11,7 +11,7 @@ import okhttp3.ResponseBody;
 /**
  * Created by yanwenqiang on 2017/6/26.
  * <p>
- * 描述:待描述
+ * 描述:模拟返回数据
  */
 public class FakeInterceptor implements Interceptor {
     @Override
