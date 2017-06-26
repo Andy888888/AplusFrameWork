@@ -18,7 +18,7 @@ import okhttp3.OkHttpClient;
  * <p>
  * 描述:项目application总入口
  */
-public class demoapplication extends Application {
+public class DemoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
