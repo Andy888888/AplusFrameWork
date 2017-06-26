@@ -85,8 +85,13 @@ public class LoginActivity extends AbsActivity implements LoaderCallbacks<Cursor
     @Override
     protected void findViews() {
 
+<<<<<<< Updated upstream:app/src/main/java/com/centa/aplusframework/activities/LoginActivity.java
         WLog.p("抽象静态方法块", BB.getString(), -2);
         WLog.p("抽象静态方法块");
+=======
+        BBB b = new BBB();
+        WLog.p("假的",b.getString());
+>>>>>>> Stashed changes:app/src/main/java/com/centa/aplusframework/LoginActivity.java
 
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         mPasswordView = (EditText) findViewById(R.id.password);
