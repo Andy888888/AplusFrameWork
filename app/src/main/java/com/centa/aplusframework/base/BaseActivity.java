@@ -12,6 +12,8 @@ public abstract class BaseActivity extends AbsActivity {
     // 1.热更新
     // 2.EventBus
     // 3.添加常用的HttpTransformer
-    // 4.FakeInterceptor 的完善
+    // 4.MVP项目结构
+    // 5.FakeInterceptor 的完善
+    // 6.BridgeJavaScript
 
 }
