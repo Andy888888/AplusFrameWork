@@ -72,15 +72,15 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
 
     // UI references.
     @BindView(R.id.email)
-    private AutoCompleteTextView mEmailView;
+    AutoCompleteTextView mEmailView;
     @BindView(R.id.password)
-    private EditText mPasswordView;
+    EditText mPasswordView;
     @BindView(R.id.login_progress)
-    private View mProgressView;
+    View mProgressView;
     @BindView(R.id.login_form)
-    private View mLoginFormView;
+    View mLoginFormView;
     @BindView(R.id.email_sign_in_button)
-    private Button mEmailSignInButton;
+    Button mEmailSignInButton;
     @BindView(R.id.button_test)
     Button mTestButton;
 
