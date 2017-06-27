@@ -15,5 +15,6 @@ public abstract class BaseActivity extends AbsActivity {
     // 4.MVP项目结构
     // 5.FakeInterceptor 的完善
     // 6.BridgeJavaScript
+    // 7.Litepal gradle 方式引入最新版本
 
 }
