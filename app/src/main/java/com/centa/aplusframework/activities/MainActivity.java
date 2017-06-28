@@ -27,24 +27,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.centa.aplusframework.R;
-import com.centa.aplusframework.api.ApiCreator;
 import com.centa.aplusframework.base.BaseActivity;
-import com.centa.aplusframework.model.respdo.APlusRespDo;
-import com.centa.aplusframework.model.respdo.PermUserInfoDo;
+import com.centa.aplusframework.contracts.MainContract;
+import com.centa.aplusframework.presenters.MainPresenter;
+import com.centa.aplusframework.repository.MainModel;
 import com.centa.centacore.interfaces.ISingleRequest;
 import com.centa.centacore.utils.WLog;
-import com.trello.rxlifecycle.android.ActivityEvent;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 import static android.Manifest.permission.READ_CONTACTS;
 import static android.os.Build.VERSION_CODES.M;
@@ -52,7 +46,7 @@ import static android.os.Build.VERSION_CODES.M;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor>, ISingleRequest {
+public class MainActivity extends BaseActivity implements LoaderCallbacks<Cursor>, ISingleRequest, MainContract.View {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -84,6 +78,7 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
     @BindView(R.id.button_test)
     Button mTestButton;
 
+    private MainContract.Presenter presenter;
 
     @Override
     protected int layoutResId() {
@@ -97,6 +92,9 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
 
     @Override
     protected void initViews() {
+
+        presenter = new MainPresenter(this, new MainModel());
+
         populateAutoComplete();
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -138,7 +136,7 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
         WLog.p("还原");
         attemptLogin();
 
-        request();
+        presenter.login();
 
         mEmailSignInButton.postDelayed(new Runnable() {
             @Override
@@ -330,42 +328,32 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(LoginActivity.this,
+                new ArrayAdapter<>(MainActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
     }
 
+
+    @Override
+    public String getStaffNo() {
+        return null;
+    }
+
+    @Override
+    public String getPwd() {
+        return null;
+    }
+
     @Override
     public void request() {
-        Map<String, Object> map = new HashMap<>();
-        map.put("UserNumbers", "Ceshigzywq");
-
-        ApiCreator.userPermission().userPermission(map)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(this.<APlusRespDo<ArrayList<PermUserInfoDo>>>bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new Subscriber<APlusRespDo<ArrayList<PermUserInfoDo>>>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(APlusRespDo<ArrayList<PermUserInfoDo>> permUserInfoDoAPlusRespDo) {
-                        List<PermUserInfoDo> permUserInfoDo = permUserInfoDoAPlusRespDo.getResult();
-                        PermUserInfoDo permUserInfoEntity = permUserInfoDo.get(0);
-                        String name = permUserInfoEntity.getIdentify().getUName();
-                        WLog.p("结果", name);
-                    }
-                });
-
+        presenter.login();
     }
+
+//    @Override
+//    public Context getContext() {
+//        return null;
+//    }
 
 
     private interface ProfileQuery {

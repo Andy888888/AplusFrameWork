@@ -34,6 +34,9 @@ dependencies {
     // pretty logger
     compile 'com.orhanobut:logger:1.15'
 
+    // LitePal
+    compile 'org.litepal.android:core:1.5.1'
+
     // retrofit
     compile 'io.reactivex:rxjava:1.2.9'
     compile 'io.reactivex:rxandroid:1.2.1'

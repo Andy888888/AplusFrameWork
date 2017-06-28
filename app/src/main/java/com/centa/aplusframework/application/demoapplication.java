@@ -1,11 +1,12 @@
 package com.centa.aplusframework.application;
 
-import android.app.Application;
-
 import com.centa.aplusframework.api.APlusHeadersInterceptor;
 import com.centa.centacore.http.LoggerInterceptor;
 import com.centa.centacore.http.okhttpclient.OkHttpClient4Api;
 import com.centa.centacore.utils.WLog;
+
+import org.litepal.LitePal;
+import org.litepal.LitePalApplication;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -18,11 +19,12 @@ import okhttp3.OkHttpClient;
  * <p>
  * 描述:项目application总入口
  */
-public class DemoApplication extends Application {
+public class DemoApplication extends LitePalApplication {
     @Override
     public void onCreate() {
         super.onCreate();
         WLog.setDebug(true);
+        LitePal.initialize(this);
         initRetrofit();
     }
 

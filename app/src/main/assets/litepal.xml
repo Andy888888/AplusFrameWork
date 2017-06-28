@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<litepal>
+    <dbname value="aplus" />
+    <version value="1" />
+    <!--<storage value="external"/>-->
+    <list>
+        <mapping class="com.centa.aplusframework.model.litepaldo.PropertySearchHistoryDo" />
+    </list>
+</litepal>
