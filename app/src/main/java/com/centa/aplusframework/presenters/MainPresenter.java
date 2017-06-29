@@ -46,6 +46,7 @@ public class MainPresenter extends MainContract.Presenter {
                         PermUserInfoDo permUserInfoEntity = permUserInfoDo.get(0);
                         String name = permUserInfoEntity.getIdentify().getUName();
                         WLog.p("结果", name);
+                        selfView.showUser(name);
                     }
                 });
 
@@ -62,6 +63,7 @@ public class MainPresenter extends MainContract.Presenter {
 //                        PermUserInfoDo permUserInfoEntity = permUserInfoDo.get(0);
 //                        String name = permUserInfoEntity.getIdentify().getUName();
 //                        WLog.p("结果", name);
+//                        selfView.showUser(name);
 //                    }
 //                });
     }

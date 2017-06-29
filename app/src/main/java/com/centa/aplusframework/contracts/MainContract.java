@@ -43,6 +43,8 @@ public interface MainContract {
         String getStaffNo();
 
         String getPwd();
+
+        void showUser(String userName);
     }
 
     /**

@@ -1,5 +1,6 @@
 package com.centa.aplusframework.activities;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
@@ -12,7 +13,6 @@ import com.centa.aplusframework.contracts.MainContract;
 import com.centa.aplusframework.presenters.MainPresenter;
 import com.centa.aplusframework.repository.MainModel;
 import com.centa.centacore.interfaces.ISingleRequest;
-import com.centa.centacore.utils.WLog;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,18 +22,12 @@ import butterknife.ButterKnife;
  */
 public class MainActivity extends BaseActivity implements ISingleRequest, MainContract.View {
     // UI references.
-    @BindView(R.id.email)
-    AutoCompleteTextView mEmailView;
-    @BindView(R.id.password)
+    @BindView(R.id.actv_account)
+    AutoCompleteTextView mAccountTextView;
+    @BindView(R.id.et_password)
     EditText mPasswordView;
-    @BindView(R.id.login_progress)
-    View mProgressView;
-    @BindView(R.id.login_form)
-    View mLoginFormView;
-    @BindView(R.id.email_sign_in_button)
-    Button mEmailSignInButton;
-    @BindView(R.id.button_test)
-    Button mTestButton;
+    @BindView(R.id.btn_sign_in)
+    Button mSignInButton;
 
     private MainContract.Presenter presenter;
 
@@ -50,17 +44,11 @@ public class MainActivity extends BaseActivity implements ISingleRequest, MainCo
     @Override
     protected void initViews() {
         presenter = new MainPresenter(this, new MainModel());
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        mSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 login_click();
-            }
-        });
-        mTestButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toast("你好！");
             }
         });
     }
@@ -70,21 +58,12 @@ public class MainActivity extends BaseActivity implements ISingleRequest, MainCo
      */
     private void login_click() {
         loadingDialog("我的数据已提交，请耐心等待...");
-
-        WLog.setDebug(true);
-        WLog.p("tt");
-        WLog.nativeLog("tt");
-        WLog.p("sss", "ggggg", 5);
-        WLog.p("还原");
-
-        presenter.login();
-
-        mEmailSignInButton.postDelayed(new Runnable() {
+        mSignInButton.postDelayed(new Runnable() {
             @Override
             public void run() {
-                cancelLoadingDialog();
+                presenter.login();
             }
-        }, 2000);
+        }, 1000);
     }
 
     @Override
@@ -95,13 +74,25 @@ public class MainActivity extends BaseActivity implements ISingleRequest, MainCo
 
     @Override
     public String getStaffNo() {
-        return null;
+        String account = mAccountTextView.getText().toString().trim();
+        if (TextUtils.isEmpty(account)) {
+            return "Ceshigzywq";
+        } else {
+            return account;
+        }
     }
 
     @Override
     public String getPwd() {
         return null;
     }
+
+    @Override
+    public void showUser(String userName) {
+        cancelLoadingDialog();
+        toast(userName);
+    }
+
 
     @Override
     public void request() {
